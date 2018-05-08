@@ -3,16 +3,18 @@ from flask_migrate import Migrate, MigrateCommand
 import main
 import models
 
+#import fake_data
 
-#Init manager obj
+
+# Init manager obj
 manager = Manager(main.app)
 
-#Init migrate obj
+# Init migrate obj
 migrate = Migrate(main.app, models.db)
 
 # Create a new command server
 # This cmd will run development_env Flask server
-manager.add_command('server', Server())
+manager.add_command('server', Server(host='0.0.0.0', port=5000))
 manager.add_command('db', MigrateCommand)
 
 @manager.shell

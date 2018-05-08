@@ -1,14 +1,15 @@
 from flask import Flask
 from config import DevConfig
+import forms
 
 
 app = Flask(__name__)
 
-app.config.from_object(DevConfig)
+# import the views modules
+views = __import__('views')
 
-@app.route('/')
-def home():
-    return '<h1>HELLO WORLD</h1>'
+# Get the config from obj of DevConfig
+app.config.from_object(DevConfig)
 
 if __name__ == '__main__':
     app.run()
