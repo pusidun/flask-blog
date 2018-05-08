@@ -1,10 +1,16 @@
+import os
+
 from flask_script import Manager, Server
 from flask_migrate import Migrate, MigrateCommand
-from blog import app, models
 
+from blog import create_app
+from blog import models
+from blog.config import DevConfig, ProducCFG
 #import fake_data
 
 
+# create app 
+app = create_app(DevConfig)
 # Init manager obj
 manager = Manager(app)
 
