@@ -1,8 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
-from main import app
 
 
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
 posts_tags = db.Table('posts_tags',
     db.Column('post_id', db.String(45), db.ForeignKey('posts.id')),

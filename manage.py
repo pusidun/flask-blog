@@ -1,16 +1,15 @@
 from flask_script import Manager, Server
 from flask_migrate import Migrate, MigrateCommand
-import main
-import models
+from blog import app, models
 
 #import fake_data
 
 
 # Init manager obj
-manager = Manager(main.app)
+manager = Manager(app)
 
 # Init migrate obj
-migrate = Migrate(main.app, models.db)
+migrate = Migrate(app, models.db)
 
 # Create a new command server
 # This cmd will run development_env Flask server
@@ -25,7 +24,7 @@ def make_shell_context():
         return: Default import object
         type: `Dict`
     '''
-    return dict(app = main.app,
+    return dict(app = app,
                 db = models.db,
                 User = models.User,
                 Post = models.Post,
