@@ -1,24 +1,24 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, TextField, PasswordField
 from wtforms.validators import DataRequired, Length
-from .models import User
+from blog.models import User
 
 
-class CommentForm(Form):
+class CommentForm(FlaskForm):
     '''Form validator for comment.'''
 
     name = StringField('Name', validators=[DataRequired(), Length(max=255)])
     text = TextField(u'Comment', validators=[DataRequired()])
 
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     '''Login form'''
 
     username = StringField('Username', validators=[DataRequired(), Length(max=255)])
     password = PasswordField('Password', validators=[DataRequired()])
 
     def validate(self):
-        check_validate = super(LoginForm, self).validate()
+        check_validate = super(LoginForm, self).validate_on_submit()
 
         if not check_validate:
             return False
@@ -30,7 +30,7 @@ class LoginForm(Form):
             return False
 
         # check the password
-        if not user.check_password(self.password.data):
+        if not user.verify_password(self.password.data):
             self.username.errors.append('Invalid username or password')
             return False
     
