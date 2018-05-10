@@ -5,7 +5,7 @@
 {% block body %}
 <!-- The data object from view function: `home()` -->
 <div class="row">
-  <div class="col-lg-9">
+  <div class="col-sm-8">
     <!-- Get Pagination object-->
     {% for post in posts.items %}
     <div class="row">
@@ -24,30 +24,30 @@
     </div>
     {% endfor %}
   </div>
-  <div class="col-lg-3">
-    <div class="row">
+  <div class="col-sm-3 col-sm-offset-1">
+    <div class="sidebar-module sidebar-module-inset">
       <h5>Recent Posts</h5>
       <ul>
         {% for post in recent %}
         <!-- Set the link for recent posts. -->
         <li><a href="{{
-          url_for('.post', post_id=post.id)
+          url_for('main.post', post_id=post.id)
           }}">{{ post.title }}</a></li>
         {% endfor %}
       </ul>
     </div>
-    <div class="row">
+    <div class="sidebar-module">
       <h5>Popular Tags</h5>
       <ul>
         {% for tag in top_tags %}
         <li><a href="{{
-          url_for('.tag', tag_name=tag[0].name)
+          url_for('main.tag', tag_name=tag[0].name)
           }}">{{ tag[0].name }}</a></li>
         {% endfor %}
       </ul>
     </div>
   </div>
   <!-- Call the Macro: `render_pagination` from base.html -->
-  {{ render_pagination(posts, 'blog.home') }}
+  {{ render_pagination(posts, 'main.home') }}
 </div>
 {% endblock %}

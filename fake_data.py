@@ -2,9 +2,9 @@ import random
 import datetime
 from uuid import uuid4
 
-from models import db, User, Tag, Post
+from app.models import db, User, Tag, Post
 
-user = User(id=str(uuid4()), username='jmilkfan', password='fanguiju')
+user = User(id=str(uuid4()),username="t",password="tttttttt")
 db.session.add(user)
 db.session.commit()
 

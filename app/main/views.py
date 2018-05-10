@@ -1,19 +1,14 @@
 from uuid import uuid4
 from datetime import datetime
 from os import path
-from flask import render_template, Blueprint
+from flask import render_template
 from sqlalchemy import func
 
-from blog.models import db, User, Post, Tag, Comment, posts_tags
-from blog.forms import CommentForm
+from app.models import db, User, Post, Tag, Comment, posts_tags
+from app.main.forms import CommentForm
+from . import main
 
 
-blog_blueprint = Blueprint(
-    'blog',
-    __name__,
-    template_folder=path.join(path.pardir, 'templates', 'blog'),
-    url_prefix='/blog',
-)
 
 def sidebar_data():
     '''Set the sidebar function'''
@@ -32,8 +27,8 @@ def sidebar_data():
 
     return recent, top_tags
 
-@blog_blueprint.route('/')
-@blog_blueprint.route('/<int:page>')
+@main.route('/')
+@main.route('/<int:page>')
 def home(page=1):
     '''View func for homepage'''
 
@@ -48,7 +43,7 @@ def home(page=1):
                             recent=recent,
                             top_tags=top_tags)
 
-@blog_blueprint.route('/post/<string:post_id>', methods=('GET', 'POST'))
+@main.route('/post/<string:post_id>', methods=('GET', 'POST'))
 def post(post_id):
     '''view func for post page'''
 
@@ -78,7 +73,7 @@ def post(post_id):
                             top_tags=top_tags,
                             form=form)
 
-@blog_blueprint.route('/tag/<string:tag_name>')
+@main.route('/tag/<string:tag_name>')
 def tag(tag_name):
     """View function for tag page"""
 
@@ -93,7 +88,7 @@ def tag(tag_name):
                            top_tags=top_tags)
 
 
-@blog_blueprint.route('/user/<string:username>')
+@main.route('/user/<string:username>')
 def user(username):
     """View function for user page"""
     user = db.session.query(User).filter_by(username=username).first_or_404()

@@ -3,10 +3,10 @@ import os
 from flask_script import Manager, Server
 from flask_migrate import Migrate, MigrateCommand
 
-from blog import create_app
-from blog import models
-from blog.config import DevConfig, ProducCFG
-#import fake_data
+from app import create_app
+from app import models
+from config import DevConfig, ProducCFG
+# import fake_data
 
 
 # create app 
